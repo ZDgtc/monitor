@@ -2,19 +2,28 @@
 """
 用于本地开发环境的全局配置
 """
-from settings import APP_ID
+#from settings import APP_ID
 
 
 # ===============================================================================
 # 数据库设置, 本地开发数据库设置
 # ===============================================================================
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',  # 默认用mysql
+#        'NAME': APP_ID,                        # 数据库名 (默认与APP_ID相同)
+#        'USER': 'root',                        # 你的数据库user
+#        'PASSWORD': 'vagrant',                        # 你的数据库password
+#        'HOST': '127.0.0.1',                   # 开发的时候，使用localhost
+#        'PORT': '3306',                        # 默认3306
+#    },
+#}
+
+import os
+from settings import BASE_DIR
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # 默认用mysql
-        'NAME': APP_ID,                        # 数据库名 (默认与APP_ID相同)
-        'USER': 'root',                        # 你的数据库user
-        'PASSWORD': '*6637E369794DD9033956E786A5D636BF84800D58',                        # 你的数据库password
-        'HOST': '172.50.21.22',                   # 开发的时候，使用localhost
-        'PORT': '3306',                        # 默认3306
-    },
+'default': {
+'ENGINE': 'django.db.backends.sqlite3',
+'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+}
 }
