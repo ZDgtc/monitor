@@ -6,6 +6,9 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse('hello blueking')
 
+def select(request):
+    return 'congratulation!'
+
 
 def home(request):
     """
