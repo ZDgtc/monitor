@@ -249,7 +249,9 @@
         $(function () {
             $('select#select').change(function () {
                 var s = $('select#select').val();
-                $.post('/select', function (data) {
+                $.post('/select',{
+                    'value': s
+                },function (data) {
                     alert(data);
                 })
             })

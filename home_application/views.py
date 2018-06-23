@@ -2,12 +2,17 @@
 
 from common.mymako import render_mako_context
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 
 def index(request):
-    return HttpResponse('hello blueking')
+    return render_to_response('home_application/index.html')
 
 def select(request):
-    return 'congratulation!'
+    s = request.POST.get('value', None)
+    if s == 'bk':
+        return 'congratulation!'
+    else:
+        return 'You chose a wrong one.'
 
 
 def home(request):
