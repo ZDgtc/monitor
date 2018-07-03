@@ -1,25 +1,27 @@
 # -*- coding: utf-8 -*-
 
-from common.mymako import render_mako_context
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from common.mymako import render_mako_context, render_json
+from models import MultRecord
 
-def index(request):
-    return render_to_response('home_application/index.html')
 
-def select(request):
-    s = request.POST.get('value', None)
-    if s == 'bk':
-        return 'congratulation!'
-    else:
-        return 'You chose a wrong one.'
+def multiplication_compute(request):
+    multiplier = int(request.POST.get('multiplier'))
+    multiplicand = int(request.POST.get('multiplicand'))
+    mult_result = multiplier * multiplicand
+    MultRecord.objects.create(multiplier=multiplier, multiplicand=multiplicand, mult_result=mult_result)
+    id = MultRecord.objects.order_by("-id")[0].id
+    return render_json({'result': True, 'mult_result': mult_result, 'id': id})
 
 
 def home(request):
     """
     首页
     """
-    return render_mako_context(request, '/home_application/home.html')
+    all_record = MultRecord.objects.all()
+    ctxt = {
+        "all_record": all_record
+    }
+    return render_mako_context(request, '/home_application/home.html', ctxt)
 
 
 def dev_guide(request):
