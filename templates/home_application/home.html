@@ -5,195 +5,387 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>作业</title>
+    <title>首页</title>
     <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
     <!-- Bootstrap css -->
-    <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <!-- kendo ui css -->
-    <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
-    <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
     <!-- font-awesome -->
-    <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
     <!--蓝鲸提供的公用样式库 -->
-    <link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk.css" rel="stylesheet">
-    <link href="https://magicbox.bkclouds.cc/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/select2-3.5.2/select2.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/artDialog-6.0.4/css/ui-dialog.css" rel="stylesheet">
     <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
-    <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
     <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
-    <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
-    <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
-    <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
-    <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
-    <script src="https://magicbox.bkclouds.cc/static_api/v3/bk/js/bk.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
     <!-- 数据埋点统计 -->
-    <script src="https://magicbox.bkclouds.cc/static_api/analysis.js"></script>
-    <link href="https://magicbox.bkclouds.cc/static_api/v3/assets/artDialog-6.0.4/css/ui-dialog.css" rel="stylesheet">
-    <script src="https://magicbox.bkclouds.cc/static_api/v3/assets/artDialog-6.0.4/dist/dialog-min.js"></script>
-    <script src="${STATIC_URL}js/csrftoken.js"></script>
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/select2-3.5.2/select2.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/artDialog-6.0.4/dist/dialog-min.js"></script>
     <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
-    <!--[if lt IE 9]><script src="https://magicbox.bkclouds.cc/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bkclouds.cc/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+    <style>
+        #jz {
+            margin:0 auto;
+            width:320px;
+            height:100px;
+        }
+    </style>
+    <script type="text/javascript">
+        var app_id = "${APP_ID}";
+        var site_url = "${SITE_URL}";	  // app的url前缀,在ajax调用的时候，应该加上该前缀
+        var static_url = "${STATIC_URL}"; // 静态资源前缀
+    </script>
 </head>
 
 <body class="bg-white" data-bg-color="bg-white">
     <div class="king-page-box">
         <div class="king-layout1-header">
-            <nav role="navigation" class="navbar navbar-default king-horizontal-nav2    f14 ">
-                <div class="container " style="width:100%;overflow:hidden;">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed navbar-toggle-sm" data-toggle="collapse" data-target="#king-horizontal-nav2-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="javascript:;">
-                            <img src="https://magicbox.bkclouds.cc/static_api/v3/bk/images/logo3.png" alt="" class="logo"> </a>
-                    </div>
-                    <div class="collapse navbar-collapse navbar-responsive-collapse" id="king-horizontal-nav2-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="king-navbar-active"><a href="javascript:void(0);">乘法计算器</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="javascript:;">
-                                    <span>管理者</span>
-                                </a>
-                            </li>
-                        </ul>
+            <nav>
+                <div style="width:100%;height:50px;" class="king-header king-header4 ">
+                    <div class="king-header-inner">
+                        <div class="king-header-brand">
+                            <a href="javascript:;">
+                                <img src="https://magicbox.bk.tencent.com/static_api/v3/components/horizontal_nav8/images/logo.png" height="30">
+                            </a>
+                        </div>
+                        <div class="king-header-list list2">
+                            <ul>
+                                <li> <a href="javascript:;"><i class="glyphicon glyphicon-shopping-cart"></i></a> </li>
+                                <li> <a href="javascript:;"><i class="glyphicon glyphicon-search"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="king-header-list list1">
+                            <ul>
+                                <li class="active">
+                                    <a href="${SITE_URL}" class="f14">
+                                        <span>首页</span>
+                                    </a>
+                                    <ul class="king-submenu"> </ul>
+                                </li>
+                                <li>
+                                    <a href="${SITE_URL}host_state/" class="f14">
+                                        <span>主机状态</span>
+                                    </a>
+                                    <ul class="king-submenu"> </ul>
+                                </li>
+                                <li>
+                                    <a href="${SITE_URL}operations/" class="f14">
+                                        <span>操作记录</span>
+                                    </a>
+                                    <ul class="king-submenu"> </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </nav>
         </div>
         <div class="king-layout2-main mt15" style="width:960px;">
             <form class="form-horizontal">
-                <div class="king-panel8 m15">
-                    <div class="king-panel8-header">
-                        <h3 class="king-panel8-title king-info">计算</h3>
-                    </div>
-                    <div class="king-panel8-content pt25">
-                        <div class="form-group clearfix ">
-                            <label class="col-sm-3 control-label bk-lh30 pt0">乘数：</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control bk-valign-top" id="multiplier" placeholder="输入乘数"> </div>
+                <div class="form-group clearfix ">
+                    <label class="col-sm-3 control-label bk-lh30 pt0">选择业务：</label>
+                    <div class="col-sm-9">
+                        <select name="" id="biz_id" class="form-control bk-valign-top">
+                        </select>
+                </div>
+                </div>
+                <div class="form-group clearfix ">
+                    <label class="col-sm-3 control-label bk-lh30 pt0">输入内网IP：</label>
+                    <div class="plugin3_demo col-sm-9" id="plugin3_demo3" style="display:inline-block;">
+                        <!-- select2 通过ajax start -->
+                        <div class="select2-container select2_box select2-container-active" id="s2id_autogen5" style="width:300px;">
+                            <a href="javascript:void(0)" class="select2-choice" tabindex="-1"> <span class="select2-chosen" id="select2-chosen-6">&nbsp;</span><abbr class="select2-search-choice-close"></abbr> <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a>
+                            <label for="s2id_autogen6" class="select2-offscreen"></label>
+                            <input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-6" id="s2id_autogen6">
                         </div>
-                        <div class="form-group clearfix ">
-                            <label class="col-sm-3 control-label bk-lh30 pt0">被乘数：</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control bk-valign-top" id="_multiplicand" placeholder="输入被乘数"> </div>
-                        </div>
-                        <div class="form-group clearfix">
-                            <div class="col-sm-9 col-sm-offset-3">
-                                <button type="button" class="king-btn mr10  king-success" id="multi_compute">计算</button>
-                                <button type="button" class="king-btn king-default ">重置</button>
-                            </div>
-                        </div>
-                        <div class="king-widget1  m0">
-                            <div class="king-widget2-content p25">
-                                <div class="king-counter king-counter-lg">
-                                    <span class="king-counter-number" id="result"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 设置面板Start -->
-                        <!-- 设置面板End -->
+                        <input type="hidden" class="select2_box" style="width: 300px; display: none;" tabindex="-1" title="">
+                        <!-- select2 通过ajax end -->
                     </div>
                 </div>
-                <div class="king-panel8 m15">
-                    <div class="king-panel8-header">
-                        <h3 class="king-panel8-title king-info">记录</h3>
-                    </div>
-                    <div class="king-panel8-content pt25">
-                        <table class="table mb0 pr15 ranger-box2  ">
-                            <thead>
-                                <tr>
-                                    <th style="width: 70px;">ID</th>
-                                    <th style="width: 15%;">乘数</th>
-                                    <th style="width: 15%;">被乘数</th>
-                                    <th style="width: 15%;">结果</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="mult_record">
-                                % for i in all_record:
-                                <tr>
-                                    <td>${i.id}</td>
-                                    <td>${i.multiplier}</td>
-                                    <td>${i.multiplicand}</td>
-                                    <td>${i.mult_result}</td>
-                                    <td>
-                                        <button class="btn btn-xs btn-warning" id="edit" > <i class="glyphicon glyphicon-edit"></i> </button>
-                                        <button class="btn btn-xs btn-danger" id="remove" value=${i.id}> <i class="glyphicon glyphicon-remove"></i> </button>
-                                    </td>
-                                </tr>
-                                % endfor
-                            </tbody>
-                        </table>
+                <div class="form-group clearfix">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="button" class="king-btn mr10  king-success" id="search">查询</button>
                     </div>
                 </div>
             </form>
+            <table class="table mb0 pr15 ranger-box2  ">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+
+            <template id="app_tpl">
+            <option value="#id#">#name#</option>
+            </template>
+
+            <template id="header_tpl_15381027859772">
+                <tr>
+                    <th style="width: 10%;">#</th>
+                    <th style="width: 10%;">IP</th>
+                    <th style="width: 15%;">Mem/Disk/CPU</th>
+                    <th style="width: 15%;">最后巡检时间</th>
+                    <th style="width: 10%;">大区</th>
+                    <th style="width: 10%;">模块</th>
+                    <th style="width: 10%;">云区域</th>
+                    <th style="width: 10%;">系统类型</th>
+                    <th style="width: 10%;">操作</th>
+                </tr>
+            </template>
+            <template id="tpl_15381027859772">
+                <tr>
+                    <td style="width: 10%;">#id#</td>
+                    <td style="width: 10%;">#ip#</td>
+                    <td style="width: 15%;">#resource#</td>
+                    <td style="width: 15%;">#last_time#</td>
+                    <td style="width: 10%;">#set#</td>
+                    <td style="width: 10%;">#module#</td>
+                    <td style="width: 10%;">#area#</td>
+                    <td style="width: 10%;">#os#</td>
+                    <td style="width: 10%;">
+                        <button class="btn btn-xs btn-success" onclick="execute_script(this)"> <i class="glyphicon glyphicon-ok"></i> </button>
+                        <button class="btn btn-xs btn-warning" onclick="add_to_celery(this)"> <i class="glyphicon glyphicon-edit"></i> </button>
+                        <button class="btn btn-xs btn-danger" onclick="remove_from_celery(this)"> <i class="glyphicon glyphicon-remove"></i> </button>
+                    </td>
+                </tr>
+            </template>
+            <!-- 设置面板End -->
         </div>
     </div>
+
     <script>
-    $(function () {
-        $("#multi_compute").click(function () {
-            var multiplier = $("#multiplier").val();
-            var multiplicand = $("#_multiplicand").val();
-            $.post("${SITE_URL}multiplication_compute/", {
-                'multiplier': multiplier,
-                'multiplicand': multiplicand
-            }, function (res) {
-                if(res.result){
-                    $("#result").html(res.mult_result);
-                    $("#mult_record").append("<tr>" +
-                        "<td>" + res.id + "</td>" +
-                        "<td>" + multiplier + "</td>" +
-                        "<td>" + multiplicand + "</td>" +
-                        "<td>" + res.mult_result + "</td>" +
-                        "<td><button class='btn btn-xs btn-warning'><i class='glyphicon glyphicon-edit'></i></button> " +
-                        "<button class='btn btn-xs btn-danger' id='remove' value=" + res.id + "><i class='glyphicon glyphicon-remove'></i></button></tr>" )
+        function renderTpl(str, cfg) {
+            var re = /(#(.+?)#)/g;
+
+            return str.replace(re, function() {
+                // arguments[2]:匹配到的字符串中括号的部分
+                var val = cfg[arguments[2]]+'';
+                if(typeof val == 'undefined') {
+                    val = '';
+                }
+                return val;
+            });
+        }
+
+        function get_hosts_by_bizId(biz_id) {
+            $.ajax({
+                url: '${SITE_URL}get_hosts_by_bizId/' + biz_id,
+                type: 'GET',
+                success: function (data) {
+                    if (!data.hosts.length) {
+                        alert('查询失败');
+                        return;
+                    }
+                    if (data.result) {
+                        var _html = '';
+                        var list = data.hosts;
+                        var tpl = $('#tpl_15381027859772').html();
+                        var headerTpl = $('#header_tpl_15381027859772').html();
+                        for (var i = 0, len = list.length; i < len; i++) {
+                            var item = list[i];
+                            _html += renderTpl(tpl, item)
+                        }
+                        $('.ranger-box2 tbody').html(_html);
+                        $('.ranger-box2 thead').html(renderTpl(headerTpl, data.catalogues));
+                    }
+                }
+            })
+        }
+
+        function execute_script(button) {
+            var ip = $(button).closest('tr').find('td:eq(1)').text();
+            var biz_id = $('#biz_id').val();
+            $.post('${SITE_URL}execute_script/', {'biz_id': biz_id, 'ip': ip}, function (data) {
+                if(data.result) {
+                    var job_instance_id = data.job_instance_id;
+                    get_script_log_content(biz_id, job_instance_id, button);
                 }
             }, 'json');
-        })
-    });
-    $(function () {
-        $("#remove").click(function () {
+        }
+
+        function get_script_log_content(biz_id, job_instance_id, button) {
+            $.ajax({
+                url: '${SITE_URL}get_script_log_content/',
+                type: 'GET',
+                data: {'biz_id': biz_id, 'job_instance_id': job_instance_id},
+                dataType: 'json',
+                success: function (res) {
+                    var log_content = res.data.log_content;
+                    var latest_time = res.data.latest_time;
+                    if (log_content.length) {
+                        $(button).closest('tr').find('td:eq(2)').text(log_content);
+                        $(button).closest('tr').find('td:eq(3)').text(latest_time);
+                    }
+                    else {
+                        $(button).closest('tr').find('td:eq(2)').text('');
+                        $(button).closest('tr').find('td:eq(3)').text('');
+                        setTimeout(function () {get_script_log_content(biz_id, job_instance_id, button)}, 1000)
+                    }
+                }
+            })
+        }
+
+        function add_to_celery(button) {
+            var ip = $(button).closest('tr').find('td:eq(1)').text();
+            var biz_id = $('#biz_id').val();
+            var biz = $('#biz_id').find("option:selected").text();
             var d = dialog({
                 width: 260,
-                title: '删除',
+                title: '提示',
                 quickClose: true,
-                content: '删除后无法恢复，是否删除？',
+                content: '要将' + biz + '业务下的' + ip + '加入定时查询吗？',
                 ok: function () {
-                    console.log(this);
-                    var delete_id = this.val();
-                    $.post("${SITE_URL}mult_delete/",{
-                        'delete_id': delete_id
-                    }, function (res) {
-                        if(res.result) {
-                            var d = dialog({
-                                 width: 260,
-                                 title: '成功',
-                                 content: '删除成功！',
-                                 cancel: false,
-                                 ok: function() {
-                                     //移除记录
-                                 }
+                    $.post('${SITE_URL}add_to_celery/', {'biz_id': biz_id, 'ip': ip}, function (data) {
+                        if (data.result) {
+                            var d_ok = dialog({
+                                width: 260,
+                                title: "提示",
+                                content: '<div class="king-notice3 king-notice-success">' +
+                                '<span class="king-notice-img"></span>' +
+                                '<div class="king-notice-text">' +
+                                '<p class="f24">加入成功</p>' +
+                                '</div>' +
+                                '</div>'
                             });
-                            d.show();
+                            d_ok.show();
+                        } else {
+                            var d_fail = dialog({
+                                width: 260,
+                                title: "提示",
+                                content: '<div class="king-notice3 king-notice-fail">'+
+                                    '<span class="king-notice-img"></span>'+
+                                    '<div class="king-notice-text">'+
+                                        '<p class="f24">队列中已存在该IP</p>'+
+                                    '</div>'+
+                                    '</div>'
+                            });
+                            d_fail.show()
                         }
-                    })
+                    }, 'json')
                 },
                 cancelValue: '取消',
-                cancel: function() {
+                cancel: function () {
                     console.log(this)
                 },
-                onshow: function() {
+                onshow: function () {
                     console.log(this)
                 }
             });
             d.show();
-        })
-    })
+        }
+
+        function remove_from_celery(button) {
+            var ip = $(button).closest('tr').find('td:eq(1)').text();
+            var biz_id = $('#biz_id').val();
+            var biz = $('#biz_id').find("option:selected").text();
+            var d = dialog({
+                width: 260,
+                title: '提示',
+                quickClose: true,
+                content: '要将' + biz + '业务下的' + ip + '从定时查询队列中移除吗？',
+                ok: function () {
+                    $.post('${SITE_URL}remove_from_celery/', {'biz_id': biz_id, 'ip': ip}, function (data) {
+                        if (data.result) {
+                            var d_ok = dialog({
+                                width: 260,
+                                title: "提示",
+                                content: '<div class="king-notice3 king-notice-success">' +
+                                '<span class="king-notice-img"></span>' +
+                                '<div class="king-notice-text">' +
+                                '<p class="f24">移除成功</p>' +
+                                '</div>' +
+                                '</div>'
+                            });
+                            d_ok.show();
+                        } else {
+                            var d_fail = dialog({
+                                width: 260,
+                                title: "提示",
+                                content: '<div class="king-notice3 king-notice-fail">'+
+                                    '<span class="king-notice-img"></span>'+
+                                    '<div class="king-notice-text">'+
+                                        '<p class="f24">该IP未加入队列</p>'+
+                                    '</div>'+
+                                    '</div>'
+                            });
+                            d_fail.show();
+                        }
+                    })
+                },
+                cancelValue: '取消',
+                cancel: function () {
+                    console.log(this)
+                },
+                onshow: function () {
+                    console.log(this)
+                }
+            });
+            d.show()
+        }
+
+
+        $(function () {
+            $.get('${SITE_URL}get_biz_list/', function (data) {
+                if (data.result){
+                    var _html = '';
+                    var list =  data.bizs;
+                    var tpl = $('#app_tpl').html();
+                    for (var i = 0; i < list.length; i++) {
+                        var item = list[i];
+                        _html += renderTpl(tpl, item)
+                    }
+                    $('#biz_id').html(_html);
+                }
+                else {
+                    alert('获取业务列表失败')
+                }
+            }, 'json');
+
+            get_hosts_by_bizId(2);
+
+            $('#biz_id').change(function () {
+                var biz_id = $('#biz_id').val();
+                $('#select2-chosen-1').text('');
+                get_hosts_by_bizId(biz_id);
+            });
+
+            $('#search').click(function () {
+                $('tbody tr').hide().filter(":contains(" + $.trim($('#select2-chosen-1').text()) + ")").show();
+            });
+
+            $("#plugin3_demo3 .select2_box").select2({
+                ajax: {
+                    url: "${SITE_URL}get_ip_by_biz_id/",
+                    data: function () {
+                        var query = {
+                            'biz_id': $('#biz_id').val()
+                        };
+                        return query
+                    },
+                    cache: false,
+                    //对返回的数据进行处理
+                    results: function(data){
+                        return data;
+                    }
+                }
+            });
+        });
     </script>
+
 </body>
+
 </html>
+
