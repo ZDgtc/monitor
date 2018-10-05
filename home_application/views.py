@@ -24,8 +24,10 @@ def get_biz_list(request):
     return render_json(result)
 
 
-def get_hosts_by_biz_id(request, bizid):
+def get_hosts_by_biz_id(request):
+    biz_id = request.GET.get('biz_id')
     hosts = []
+    match_host = []
     client = get_client_by_request(request)
     args = {
         "page": {"start": 0, "limit": 5, "sort": "bk_host_id"},
@@ -53,7 +55,7 @@ def get_hosts_by_biz_id(request, bizid):
                     {
                         "field": "bk_biz_id",
                         "operator": "$eq",
-                        "value": int(bizid)
+                        "value": int(biz_id)
                     }
                 ]
             }
@@ -67,14 +69,17 @@ def get_hosts_by_biz_id(request, bizid):
             hosts.append({
                 'id': host_info['bk_host_id'],
                 'ip': host_info['bk_host_innerip'],
-                'resource': '',
-                'last_time': '',
+                'resource': '-',
+                'last_time': '-',
                 'set': data['set'][0]['bk_set_name'],
                 'module': data['module'][0]['bk_module_name'],
                 'area': host_info['bk_cloud_id'][0]['bk_inst_name'],
                 'os': host_info['bk_os_name']
             })
-    result = {'result': resp.get('result'), 'hosts': hosts}
+    if request.GET.get('ip'):
+        ip = request.GET.get('ip')
+        match_host = [host for host in hosts if host['ip'] == ip]
+    result = {'result': resp.get('result'), 'hosts': hosts, 'match_host': match_host}
     return render_json(result)
 
 
@@ -162,9 +167,17 @@ def operations(request):
     return render_mako_context(request, '/home_application/operations.html')
 
 
-def get_operations(request):
-    ops = Operations.objects.all().order_by('-id')
+def get_op_page_rows(request):
+    total_count = Operations.objects.count()
+    return render_json({'rows': total_count, 'per_page': 10})
+
+
+def get_op_page_data(request):
+    page = request.GET.get('current_page')
+    begin = int(page) * 10
+    end = begin + 9
     data = []
+    ops = Operations.objects.order_by('-id')[begin: end]
     for op in ops:
         data.append({
             'id': op.id,
@@ -173,11 +186,7 @@ def get_operations(request):
             'exec_time': datetime.strftime(op.exec_time, '%Y-%m-%d %H:%M:%S'),
             'type': op.type
         })
-    result = {
-        'result': True,
-        'data': data
-    }
-    return render_json(result)
+    return render_json({'data': data})
 
 
 def host_state(request):
@@ -187,7 +196,11 @@ def host_state(request):
 def get_host_state(request):
     biz_id = request.GET.get('biz_id')
     ip = request.GET.get('ip')
-    state_records = ResourceData.objects.filter(biz_id=biz_id, ip=ip).all()
+    state_records = ResourceData.objects.order_by('-id').filter(biz_id=biz_id, ip=ip)[:20]
+    memory_data = list(reversed([record.memory for record in state_records]))
+    disk_data = list(reversed([record.disk for record in state_records]))
+    cpu_data = list(reversed([record.cpu for record in state_records]))
+    datetime_data = list(reversed([datetime.strftime(record.exec_time, '%H:%M:%S') for record in state_records]))
     result = {
         'code': 0,
         'result': True,
@@ -197,20 +210,20 @@ def get_host_state(request):
                 {
                     'color': '#f9ce1d',
                     'name': 'memory',
-                    'data': [record.memory for record in state_records]
+                    'data': memory_data
                 },
                 {
                     'color': '#f91d1d',
                     'name': 'disk',
-                    'data': [record.disk for record in state_records]
+                    'data': disk_data
                 },
                 {
                     'color': '#1d2bf9',
                     'name': 'cpu',
-                    'data': [record.cpu for record in state_records]
+                    'data': cpu_data
                 }
             ],
-            'categories': [datetime.strftime(record.exec_time, '%Y-%m-%d %H:%M:%S') for record in state_records]
+            'categories': datetime_data
         }
     }
     return render_json(result)

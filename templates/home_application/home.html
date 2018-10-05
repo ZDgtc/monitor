@@ -61,8 +61,7 @@
                         </div>
                         <div class="king-header-list list2">
                             <ul>
-                                <li> <a href="javascript:;"><i class="glyphicon glyphicon-shopping-cart"></i></a> </li>
-                                <li> <a href="javascript:;"><i class="glyphicon glyphicon-search"></i></a> </li>
+                                <li> <a href="javascript:;">${user.username}</a> </li>
                             </ul>
                         </div>
                         <div class="king-header-list list1">
@@ -116,6 +115,7 @@
                 <div class="form-group clearfix">
                     <div class="col-sm-9 col-sm-offset-3">
                         <button type="button" class="king-btn mr10  king-success" id="search">查询</button>
+                        <button type="button" class="king-btn king-default " id="clear">清除查询</button>
                     </div>
                 </div>
             </form>
@@ -134,28 +134,28 @@
 
             <template id="header_tpl_15381027859772">
                 <tr>
-                    <th style="width: 10%;">#</th>
-                    <th style="width: 10%;">IP</th>
-                    <th style="width: 15%;">Mem/Disk/CPU</th>
-                    <th style="width: 15%;">最后巡检时间</th>
-                    <th style="width: 10%;">大区</th>
-                    <th style="width: 10%;">模块</th>
-                    <th style="width: 10%;">云区域</th>
-                    <th style="width: 10%;">系统类型</th>
-                    <th style="width: 10%;">操作</th>
+                    <th style="width: 10%; text-align: center">#</th>
+                    <th style="width: 10%; text-align: center">IP</th>
+                    <th style="width: 15%; text-align: center">Mem/Disk/CPU</th>
+                    <th style="width: 15%; text-align: center">最后巡检时间</th>
+                    <th style="width: 10%; text-align: center">大区</th>
+                    <th style="width: 10%; text-align: center">模块</th>
+                    <th style="width: 10%; text-align: center">云区域</th>
+                    <th style="width: 10%; text-align: center">系统类型</th>
+                    <th style="width: 10%; text-align: center">操作</th>
                 </tr>
             </template>
             <template id="tpl_15381027859772">
                 <tr>
-                    <td style="width: 10%;">#id#</td>
-                    <td style="width: 10%;">#ip#</td>
-                    <td style="width: 15%;">#resource#</td>
-                    <td style="width: 15%;">#last_time#</td>
-                    <td style="width: 10%;">#set#</td>
-                    <td style="width: 10%;">#module#</td>
-                    <td style="width: 10%;">#area#</td>
-                    <td style="width: 10%;">#os#</td>
-                    <td style="width: 10%;">
+                    <td style="width: 10%; text-align: center">#id#</td>
+                    <td style="width: 10%; text-align: center">#ip#</td>
+                    <td style="width: 15%; background-color: lightgreen; text-align: center">#resource#</td>
+                    <td style="width: 15%; text-align: center">#last_time#</td>
+                    <td style="width: 10%; text-align: center">#set#</td>
+                    <td style="width: 10%; text-align: center">#module#</td>
+                    <td style="width: 10%; text-align: center">#area#</td>
+                    <td style="width: 10%; text-align: center">#os#</td>
+                    <td style="width: 10%; text-align: center">
                         <button class="btn btn-xs btn-success" onclick="execute_script(this)"> <i class="glyphicon glyphicon-ok"></i> </button>
                         <button class="btn btn-xs btn-warning" onclick="add_to_celery(this)"> <i class="glyphicon glyphicon-edit"></i> </button>
                         <button class="btn btn-xs btn-danger" onclick="remove_from_celery(this)"> <i class="glyphicon glyphicon-remove"></i> </button>
@@ -182,7 +182,8 @@
 
         function get_hosts_by_bizId(biz_id) {
             $.ajax({
-                url: '${SITE_URL}get_hosts_by_bizId/' + biz_id,
+                url: '${SITE_URL}get_hosts_by_bizId/',
+                data: {'biz_id': biz_id},
                 type: 'GET',
                 success: function (data) {
                     if (!data.hosts.length) {
@@ -230,8 +231,8 @@
                         $(button).closest('tr').find('td:eq(3)').text(latest_time);
                     }
                     else {
-                        $(button).closest('tr').find('td:eq(2)').text('');
-                        $(button).closest('tr').find('td:eq(3)').text('');
+                        $(button).closest('tr').find('td:eq(2)').text('-');
+                        $(button).closest('tr').find('td:eq(3)').text('-');
                         setTimeout(function () {get_script_log_content(biz_id, job_instance_id, button)}, 1000)
                     }
                 }
@@ -363,7 +364,24 @@
             });
 
             $('#search').click(function () {
-                $('tbody tr').hide().filter(":contains(" + $.trim($('#select2-chosen-1').text()) + ")").show();
+               /* $('tbody tr').hide().filter(":contains(" + $.trim($('#select2-chosen-1').text()) + ")").show(); */
+               var ip = $.trim($('#select2-chosen-1').text());
+               var biz_id = $('#biz_id').val();
+               if (ip.length == 0) {
+                   get_hosts_by_bizId(biz_id);
+                   return;
+               }
+               $.get('${SITE_URL}get_hosts_by_bizId', {'ip': ip, 'biz_id': biz_id}, function (res) {
+                   if (res.result) {
+                       var _html = '';
+                       var item = res.match_host[0];
+                       var tpl = $('#tpl_15381027859772').html();
+                       var headerTpl = $('#header_tpl_15381027859772').html();
+                       _html += renderTpl(tpl, item);
+                       $('.ranger-box2 tbody').html(_html);
+                       $('.ranger-box2 thead').html(renderTpl(headerTpl, res.catalogues));
+                   }
+               })
             });
 
             $("#plugin3_demo3 .select2_box").select2({
@@ -382,6 +400,12 @@
                     }
                 }
             });
+
+            $('#clear').click(function () {
+                $('#select2-chosen-1').text("");
+                var biz_id = $('#biz_id').val();
+                get_hosts_by_bizId(biz_id);
+            })
         });
     </script>
 
