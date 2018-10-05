@@ -3,7 +3,6 @@
 from common.mymako import render_mako_context, render_json
 from blueking.component.shortcuts import get_client_by_request
 from utils import get_job_instance_id, get_job_log_content
-from django.views.decorators.csrf import csrf_exempt
 from models import Operations, ResourceData, CeleryTask
 from datetime import datetime
 
@@ -131,7 +130,6 @@ def get_ip_by_biz_id(request):
     return render_json({'results': ip_list})
 
 
-@csrf_exempt
 def execute_script(request):
     client = get_client_by_request(request)
     ip = request.POST.get('ip')
@@ -229,7 +227,6 @@ def get_host_state(request):
     return render_json(result)
 
 
-@csrf_exempt
 def add_to_celery(request):
     biz_id = request.POST.get('biz_id')
     ip = request.POST.get('ip')
@@ -240,7 +237,6 @@ def add_to_celery(request):
     return render_json({'result': True})
 
 
-@csrf_exempt
 def remove_from_celery(request):
     biz_id = request.POST.get('biz_id')
     ip = request.POST.get('ip')
