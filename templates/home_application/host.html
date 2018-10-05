@@ -15,6 +15,7 @@
     <!-- font-awesome -->
     <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
     <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/artDialog-6.0.4/css/ui-dialog.css" rel="stylesheet">
     <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
     <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
     <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/select2-3.5.2/select2.css" rel="stylesheet">
@@ -30,6 +31,7 @@
     <!-- 数据埋点统计 -->
     <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/select2-3.5.2/select2.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/artDialog-6.0.4/dist/dialog-min.js"></script>
 
     <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
     <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
@@ -228,10 +230,22 @@
             });
 
             $('#search').click(function () {
+                var search_ip = $('#select2-chosen-1').text();
+                if (!$.trim(search_ip).length) {
+                    var d = dialog({
+                        width: 260,
+                        title: '提示',
+                        content: '<div class="king-notice-box king-notice-fail"><p class="king-notice-text">请输入查询IP</p></div>',
+                        cancel: false,
+                        ok: function() {}
+                    });
+                    d.show();
+                    return;
+                }
                 initKendoLineChart({
                     url: '${SITE_URL}get_host_state/',
                     biz_id: $('#biz_id').val(),
-                    ip: $.trim($('#select2-chosen-1').text()),
+                    ip: $.trim(search_ip),
                     dataType: 'json',
                     container: '#chart_1538104680338'
                 });
