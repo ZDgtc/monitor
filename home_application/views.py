@@ -245,3 +245,15 @@ def remove_from_celery(request):
     CeleryTask.objects.filter(biz_id=biz_id, ip=ip).delete()
     Operations.objects.create(exec_time=datetime.now(), ip=ip, user=request.user.username, type='取消自动检查')
     return render_json({'result': True})
+
+
+def send_mail(request):
+    client = get_client_by_request(request)
+    args = {
+        'receiver': '13377698287@189.cn',
+        "sender": "605079324@qq.com",
+        "title": "邮件发送验证",
+        'content': '这是发送自蓝鲸的邮件'
+    }
+    resp = client.cmsi.send_mail(**args)
+    return render_json(resp)

@@ -16,5 +16,6 @@ urlpatterns = patterns(
     (r'^get_op_page_rows', 'get_op_page_rows'),
     (r'^get_op_page_data', 'get_op_page_data'),
     (r'^add_to_celery/$', 'add_to_celery'),
-    (r'^remove_from_celery/$', 'remove_from_celery')
+    (r'^remove_from_celery/$', 'remove_from_celery'),
+    (r'^send_mail/$', 'send_mail')
 )
