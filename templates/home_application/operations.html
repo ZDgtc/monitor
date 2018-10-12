@@ -7,6 +7,13 @@
                     <h3 class="panel-title">历史操作记录</h3>
                 </div>
                 <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group clearfix ">
+                            <label class="col-sm-9 control-label bk-lh30 pt0">搜索：</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control bk-valign-top" id="search" placeholder="支持IP模糊查询"> </div>
+                        </div>
+                    </form>
                     <table class="table mb0 pr15 ranger-box ">
                         <thead>
                         </thead>
@@ -51,12 +58,16 @@
                     return val;
                 });
             }
-
+            
             getRows();
-
-            function getRows() {
-                $.get('${SITE_URL}get_op_page_rows', function (response) {
-                    initPagination(response)
+            
+            $('#search').bind('input propertychange', function () {
+                getRows($.trim($(this).val()));
+            });
+            
+            function getRows(search_val) {
+                $.get('${SITE_URL}get_op_page_rows', {'search_val': search_val}, function (response) {
+                    initPagination(response, search_val)
                 });
             }
 
@@ -78,7 +89,8 @@
 
 
             function loadData(page) {
-                $.get('${SITE_URL}get_op_page_data/', {'current_page': page}, function (res) {
+                var search_val = $.trim($('#search').val());
+                $.get('${SITE_URL}get_op_page_data/', {'current_page': page, 'search_val': search_val}, function (res) {
                     var _html = '';
                     var list = res.data;
                     var tpl = $('#tpl_1538607218518').html();

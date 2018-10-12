@@ -45,13 +45,13 @@ def get_job_log_content(client, biz_id, job_instance_id):
         data = resp.get('data')[0]
         if data.get('is_finished'):
             is_finished = True
-            log_content = data['step_results'][0]['ip_logs'][0]['log_content']
+            logs = data['step_results'][0]['ip_logs'][0]['log_content'].strip('\n').split('|')
+            log_content = '|'.join(logs[1:])
             ip = data['step_results'][0]['ip_logs'][0]['ip']
             latest_record = ResourceData.objects.filter(ip=ip).last()
             if latest_record is not None:
                 latest_time = datetime.strftime(latest_record.exec_time, '%Y-%m-%d %H:%M:%S')
             try:
-                logs = log_content.strip('\n').split('|')
                 exec_time = datetime.strptime(logs[0], '%Y-%m-%d %H:%M:%S')
                 ResourceData.objects.create(
                     exec_time=exec_time,

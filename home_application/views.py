@@ -166,16 +166,24 @@ def operations(request):
 
 
 def get_op_page_rows(request):
-    total_count = Operations.objects.count()
+    search_val = request.GET.get('search_val', '')
+    if not search_val:
+        total_count = Operations.objects.count()
+    else:
+        total_count = Operations.objects.filter(ip__contains=search_val).count()
     return render_json({'rows': total_count, 'per_page': 10})
 
 
 def get_op_page_data(request):
+    search_val = request.GET.get('search_val')
     page = request.GET.get('current_page')
     begin = int(page) * 10
     end = begin + 9
     data = []
-    ops = Operations.objects.order_by('-id')[begin: end]
+    if search_val:
+        ops = Operations.objects.filter(ip__contains=search_val).order_by('-id')[begin: end]
+    else:
+        ops = Operations.objects.order_by('-id')[begin: end]
     for op in ops:
         data.append({
             'id': op.id,
